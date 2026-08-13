@@ -236,9 +236,6 @@ def game_over():
 
 
 # Start game
-print("======================")
-print("    MEMORY REACTION")
-print("======================")
 print("Press joystick to start")
 
 while not pressed():
@@ -253,7 +250,6 @@ beep(0, 150)
 # Main game loop
 while True:
 
-    print("----------------------")
     print("Round:", len(sequence) + 1)
 
     # Add another LED to the sequence
@@ -285,7 +281,6 @@ while True:
         while not pressed():
             utime.sleep_ms(10)
 
-        print("Restarting...")
         print()
 
         beep(0, 150)
