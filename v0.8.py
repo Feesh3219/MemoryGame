@@ -31,6 +31,9 @@ button = Pin(SW_PIN, Pin.IN, Pin.PULL_UP)
 buzzer = PWM(Pin(BUZZER_PIN))
 buzzer.duty_u16(0)
 
+# LED brightness
+BRIGHTNESS = 0.10
+
 # Colours for each LED
 colours = [
     (255, 0, 0),
@@ -91,7 +94,15 @@ def clear():
 # Displays one LED
 def show(position):
     clear()
-    np[position] = colours[position]
+
+    r, g, b = colours[position]
+
+    np[position] = (
+        int(r * BRIGHTNESS),
+        int(g * BRIGHTNESS),
+        int(b * BRIGHTNESS)
+    )
+
     np.write()
 
 
@@ -109,8 +120,14 @@ def beep(position, time):
 def flash(colour):
     for _ in range(2):
 
+        r, g, b = colour
+
         for i in range(NUM_LEDS):
-            np[i] = colour
+            np[i] = (
+                int(r * BRIGHTNESS),
+                int(g * BRIGHTNESS),
+                int(b * BRIGHTNESS)
+            )
 
         np.write()
         utime.sleep_ms(100)
@@ -282,5 +299,4 @@ while True:
             utime.sleep_ms(10)
 
         print()
-
         beep(0, 150)
